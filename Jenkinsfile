@@ -10,6 +10,7 @@ pipeline {
                     //Docker image and runs this image as a separate container. The Python container becomes
                     //the agent that Jenkins uses to run the Build stage of your Pipeline project.
                     image 'python:2-alpine'
+                    label 'docker'
                 }
             }
             steps {
