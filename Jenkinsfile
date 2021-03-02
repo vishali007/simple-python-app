@@ -62,13 +62,11 @@ pipeline {
                         //and runs this image as a separate container.
                         dir(path: env.BUILD_ID) {
                             unstash(name: 'compiled-results')
-                            alias python python27
-                            source ~/.alias
-                            (setenv "BASH_ENV" "~/.bashrc")
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
                             sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
+                            }
                         }
                     }
                     post {
