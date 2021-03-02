@@ -64,9 +64,6 @@ pipeline {
                             unstash(name: 'compiled-results')
                             alias python python27
                             source ~/.alias
-                            shopt -s expand_aliases
-                            source ~/.alias
-                            shopt -s expand_aliases
                             (setenv "BASH_ENV" "~/.bashrc")
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
