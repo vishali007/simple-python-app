@@ -49,6 +49,9 @@ pipeline {
         stage('Deliver') {
                     agent any
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
+                    docker {
+                    image 'cdrx/pyinstaller-window:python2'
+                    }
                     environment {
                         VOLUME = '$(pwd)/sources:/src'
                         IMAGE = 'cdrx/pyinstaller-window:python2'
