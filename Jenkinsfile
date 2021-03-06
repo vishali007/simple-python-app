@@ -50,11 +50,16 @@ pipeline {
             }
         }
         stage('Deliver') {
-            agent any
+            agent {
+                docker {
+                    image 'cdrx/pyinstaller-windows:python2'
+                    args '-u root --privileged'
+                }
+            }
             //This environment block defines two variables which will be used later in the 'Deliver' stage.
             environment {
                 VOLUME = '$(pwd)/sources:/src'
-                IMAGE = 'cdrx/pyinstaller-linux:python2'
+                IMAGE = 'cdrx/pyinstaller-windows:python2'
             }
             steps {
                 //This dir step creates a new subdirectory named by the build number.
@@ -69,7 +74,7 @@ pipeline {
                     //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                     //This bundles your add2vals.py Python application into a single standalone executable file
                     //and outputs this file to the dist workspace directory (within the Jenkins home directory).
-                    sh "docker run -v ${VOLUME} ${IMAGE}"
+                    sh "pyinstaller --onefile sources/add2vals.py"
                 }
             }
             post {
